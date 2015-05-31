@@ -71,7 +71,7 @@ class UploadController extends Controller
 			$ext = end((explode(".", $file->name)));
 			
 			$model->fileName = Yii::$app->security->generateRandomString().".{$ext}";
-			$path = Yii::$app->basePath.'uploads/'.$model->fileName;
+			$path = Yii::$app->basePath.'/../uploads/'.$model->fileName;
  
             if($model->save()){
                 $file->saveAs($path);
