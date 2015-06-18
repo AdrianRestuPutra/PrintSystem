@@ -17,7 +17,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idFile') ?>
 
-    <?= $form->field($model, 'fileName') ?>
+    <?= $form->field($model, 'username') ?>
+
+    <?= $form->field($model, 'filecopy') ?>
+
+    <?= $form->field($model, 'typecolor') ?>
+
+    <?= $form->field($model, 'shift') ?>
+
+    <?php // echo $form->field($model, 'datestart') ?>
+
+    <?php // echo $form->field($model, 'dateend') ?>
+
+    <?php // echo $form->field($model, 'size') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'fileName') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

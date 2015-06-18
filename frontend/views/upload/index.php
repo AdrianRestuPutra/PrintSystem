@@ -19,16 +19,33 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Upload', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idFile',
+            //'idFile',
+            'username',
+            'filecopy',
+            'typecolor',
+            'shift',
+            'datestart',
+            'dateend',
+            'size',
+            'status',
             'fileName',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{pages} {view} {update} {delete}',  
+                'buttons' => [
+                    'pages' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-folder-open"></span>', $url, ['title'=>'View Pages', 'style'=>'padding-right: 5px;']);
+                    },
+                ]
+            ],
         ],
     ]); ?>
 

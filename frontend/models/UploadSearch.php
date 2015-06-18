@@ -18,8 +18,8 @@ class UploadSearch extends Upload
     public function rules()
     {
         return [
-            [['idFile'], 'integer'],
-            [['fileName'], 'safe'],
+            [['idFile', 'filecopy', 'typecolor', 'shift', 'size', 'status'], 'integer'],
+            [['username', 'datestart', 'dateend', 'fileName'], 'safe'],
         ];
     }
 
@@ -57,9 +57,17 @@ class UploadSearch extends Upload
 
         $query->andFilterWhere([
             'idFile' => $this->idFile,
+            'filecopy' => $this->filecopy,
+            'typecolor' => $this->typecolor,
+            'shift' => $this->shift,
+            'datestart' => $this->datestart,
+            'dateend' => $this->dateend,
+            'size' => $this->size,
+            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'fileName', $this->fileName]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'fileName', $this->fileName]);
 
         return $dataProvider;
     }

@@ -29,6 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'idFile',
+            'username',
+            'filecopy',
+            'typecolor',
+            'shift',
+            'datestart',
+            'dateend',
+            'size',
+            'status',
             'fileName',
         ],
     ]) ?>
