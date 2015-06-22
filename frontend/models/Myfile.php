@@ -22,7 +22,7 @@ use Yii;
  * @property Status $status0
  * @property Shift $shift0
  */
-class Upload extends \yii\db\ActiveRecord
+class Myfile extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -41,9 +41,6 @@ class Upload extends \yii\db\ActiveRecord
             [['username', 'filecopy', 'typecolor', 'shift', 'datestart', 'dateend', 'size', 'status', 'fileName'], 'required'],
             [['filecopy', 'typecolor', 'shift', 'size', 'status'], 'integer'],
             [['username', 'datestart', 'dateend'], 'string', 'max' => 255],
-
-            [['fileName'],'safe'],
-            [['fileName'],'file','extensions'=>'pdf, txt, doc, docx', 'maxSize' =>1024 * 1024 * 10],
             [['fileName'], 'string', 'max' => 100]
         ];
     }
@@ -63,13 +60,19 @@ class Upload extends \yii\db\ActiveRecord
             'dateend' => 'Dateend',
             'size' => 'Size',
             'status' => 'Status',
-            'fileName' => 'File Upload',
+            'fileName' => 'File Name',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
+
+    public function getUsername()
+    {
+        return $this->hasOne(Color::className(), ['username' => 'username']);
+    }
+
     public function getTypecolor0()
     {
         return $this->hasOne(Color::className(), ['typecolor' => 'typecolor']);

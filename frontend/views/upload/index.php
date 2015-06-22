@@ -27,22 +27,31 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'idFile',
-            'username',
-            'filecopy',
-            'typecolor',
-            'shift',
-            'datestart',
-            'dateend',
-            'size',
-            'status',
-            'fileName',
+                'username',
+                'filecopy',
+                'typecolor',
+                'shift',
+                'datestart',
+                'dateend',
+                'size',
+                'status',
+                
+
+[
+             'label'=>'fileName',
+             'format'=>'raw',
+             'value' => function($data){
+                 $url = "http://www.bsourcecode.com/".'status';
+                 return Html::a('a', $url, ['title' => 'Download']); 
+             }
+],
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{pages} {view} {update} {delete}',  
+                'template' => '{download} {view} {update} {delete}',  
                 'buttons' => [
-                    'pages' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-folder-open"></span>', $url, ['title'=>'View Pages', 'style'=>'padding-right: 5px;']);
+                    'download' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-folder-open"></span>', $url, ['title'=>'Download', 'style'=>'padding-right: 5px;']);
                     },
                 ]
             ],

@@ -4,19 +4,18 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Upload */
+/* @var $model frontend\models\Myfile */
 
 $this->title = $model->idFile;
-$this->params['breadcrumbs'][] = ['label' => 'Uploads', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Myfiles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="upload-view">
+<div class="myfile-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->idFile], ['class' => 'btn btn-primary']) ?>        
-        <?= Html::a('Download', ['download', 'id' => $model->idFile, 'fileName' => $model->fileName], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->idFile], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->idFile], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -29,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            //'idFile',
+            'idFile',
             'username',
             'filecopy',
             'typecolor',

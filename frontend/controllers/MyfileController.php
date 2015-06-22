@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Upload;
-use frontend\models\UploadSearch;
+use frontend\models\Myfile;
+use frontend\models\MyfileSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
+
 /**
- * UploadController implements the CRUD actions for Upload model.
+ * MyfileController implements the CRUD actions for Myfile model.
  */
-class UploadController extends Controller
+class MyfileController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class UploadController extends Controller
     }
 
     /**
-     * Lists all Upload models.
+     * Lists all Myfile models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UploadSearch();
+        $searchModel = new MyfileSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class UploadController extends Controller
     }
 
     /**
-     * Displays a single Upload model.
+     * Displays a single Myfile model.
      * @param integer $id
      * @return mixed
      */
@@ -54,57 +54,25 @@ class UploadController extends Controller
     }
 
     /**
-     * Creates a new Upload model.
+     * Creates a new Myfile model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Upload();
+        $model = new Myfile();
 
-        if ($model->load(Yii::$app->request->Post())) {
-            
-            //$fileName = $model->idFile;
-            $file = UploadedFile::getInstance($model, 'fileName');
-            $model->fileName = $file->name;
-            $ext = end((explode(".", $file->name)));
-            
-            $model->fileName = Yii::$app->security->generateRandomString().".{$ext}";
-            $path = Yii::$app->basePath.'/../uploads/'.$model->fileName;
- 
-            if($model->save()){
-                $file->saveAs($path);
-               return $this->redirect(['view', 'id' => $model->idFile]);
-            }
-            
-        }
-        else {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->idFile]);
+        } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
     }
 
-
-    public function actionDownload($id, $fileName)
-    {
-        $model = new Upload();
-
-        if (file_exists($fileName)) {
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename='.basename($fileName));
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($fileName));
-            readfile($fileName);
-            exit;
-        }
-    }
-
     /**
-     * Updates an existing Upload model.
+     * Updates an existing Myfile model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -123,7 +91,7 @@ class UploadController extends Controller
     }
 
     /**
-     * Deletes an existing Upload model.
+     * Deletes an existing Myfile model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -136,15 +104,15 @@ class UploadController extends Controller
     }
 
     /**
-     * Finds the Upload model based on its primary key value.
+     * Finds the Myfile model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Upload the loaded model
+     * @return Myfile the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Upload::findOne($id)) !== null) {
+        if (($model = Myfile::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
