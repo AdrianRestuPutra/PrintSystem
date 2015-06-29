@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\db\Connection;
 /**
  * UploadController implements the CRUD actions for Upload model.
  */
@@ -70,7 +71,7 @@ class UploadController extends Controller
             $ext = end((explode(".", $file->name)));
             
             $model->fileName = Yii::$app->security->generateRandomString().".{$ext}";
-            $path = Yii::$app->basePath.'/../uploads/'.$model->fileName;
+            $path = Yii::$app->basePath.'../web/uploads/'.$model->fileName;
  
             if($model->save()){
                 $file->saveAs($path);
@@ -86,21 +87,23 @@ class UploadController extends Controller
     }
 
 
-    public function actionDownload($id, $fileName)
+    public function actionDone($id)
     {
         $model = new Upload();
+        date_default_timezone_set("Asia/Jakarta");
+        $model->dateend = date('d-M-Y h:i:s');
+        Yii::$app->db->createCommand()->update('upload', ['dateend' => $model->dateend], 'idFile='.$id)->execute();
+        Yii::$app->db->createCommand()->update('upload', ['status' => 3], 'idFile='.$id)->execute();
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
-        if (file_exists($fileName)) {
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename='.basename($fileName));
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($fileName));
-            readfile($fileName);
-            exit;
-        }
+    public function actionDownload($id, $fileName)
+    {
+       
+        Yii::$app->db->createCommand()->update('upload', ['status' => 2], 'idFile='.$id)->execute();
+        return $this->redirect('uploads/index.php?fileName='.$fileName);
     }
 
     /**
