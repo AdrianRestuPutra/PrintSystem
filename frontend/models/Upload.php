@@ -15,11 +15,11 @@ use Yii;
  * @property string $datestart
  * @property string $dateend
  * @property integer $size
- * @property integer $status
+ * @property string $status
  * @property string $fileName
  *
- * @property Color $typecolor0
  * @property Status $status0
+ * @property Color $typecolor0
  * @property Shift $shift0
  */
 class Upload extends \yii\db\ActiveRecord
@@ -39,7 +39,7 @@ class Upload extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'filecopy', 'typecolor', 'shift', 'datestart', 'dateend', 'size', 'status', 'fileName'], 'required'],
-            [['filecopy', 'typecolor', 'shift', 'size', 'status'], 'integer'],
+            [['filecopy', 'typecolor', 'shift', 'size'], 'integer'],
             [['username', 'datestart', 'dateend'], 'string', 'max' => 255],
 
             [['fileName'],'safe'],
@@ -70,17 +70,17 @@ class Upload extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTypecolor0()
+    public function getStatus0()
     {
-        return $this->hasOne(Color::className(), ['typecolor' => 'typecolor']);
+        return $this->hasOne(Status::className(), ['status' => 'status']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStatus0()
+    public function getTypecolor0()
     {
-        return $this->hasOne(Status::className(), ['status' => 'status']);
+        return $this->hasOne(Color::className(), ['typecolor' => 'typecolor']);
     }
 
     /**

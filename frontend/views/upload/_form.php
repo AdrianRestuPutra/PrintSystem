@@ -17,7 +17,9 @@ use frontends\models\Status;
     'options'=>['enctype'=>'multipart/form-data'] // important
     ]); ?>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    <?php
+    $model->username = Yii::$app->user->identity->username;
+    echo $form->field($model, 'username')->hiddenInput()->label(false); ?>
 
     <?= $form->field($model, 'filecopy')->textInput() ?>
 
@@ -42,11 +44,13 @@ use frontends\models\Status;
     $model->dateend = date('d-M-Y h:i:s');
     echo $form->field($model, 'dateend')->hiddenInput()->label(false); ?>
 
-    <?= $form->field($model, 'size')->textInput() ?>
+    <?php    
+    $model->size = '21';
+    echo $form->field($model, 'size')->hiddenInput()->label(false); ?>
 
     
     <?php
-    $model->status = '1';
+    $model->status = 'Order';
     echo $form->field($model, 'status')->hiddenInput()->label(false); ?>
 
    <?= $form->field($model, 'fileName')->fileInput() ?>

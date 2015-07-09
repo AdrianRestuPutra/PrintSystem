@@ -57,6 +57,7 @@ class UploadSearch extends Upload
 
         $query->andFilterWhere([
             'idFile' => $this->idFile,
+            //'username' => Yii::$app->user->identity->username,
             'filecopy' => $this->filecopy,
             'typecolor' => $this->typecolor,
             'shift' => $this->shift,

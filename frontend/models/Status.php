@@ -7,8 +7,7 @@ use Yii;
 /**
  * This is the model class for table "status".
  *
- * @property integer $status
- * @property string $statusname
+ * @property string $status
  *
  * @property Upload[] $uploads
  */
@@ -28,8 +27,8 @@ class Status extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['statusname'], 'required'],
-            [['statusname'], 'string', 'max' => 20]
+            [['status'], 'required'],
+            [['status'], 'string', 'max' => 20]
         ];
     }
 
@@ -40,7 +39,6 @@ class Status extends \yii\db\ActiveRecord
     {
         return [
             'status' => 'Status',
-            'statusname' => 'Statusname',
         ];
     }
 

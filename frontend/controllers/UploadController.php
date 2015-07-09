@@ -68,13 +68,16 @@ class UploadController extends Controller
             //$fileName = $model->idFile;
             $file = UploadedFile::getInstance($model, 'fileName');
             $model->fileName = $file->name;
+            $model->username = Yii::$app->user->identity->username;
             $ext = end((explode(".", $file->name)));
             
             $model->fileName = Yii::$app->security->generateRandomString().".{$ext}";
             $path = Yii::$app->basePath.'../web/uploads/'.$model->fileName;
+            $model->size = ceil(filesize($model->fileName));
  
             if($model->save()){
                 $file->saveAs($path);
+                $model->size = ceil(filesize($model->fileName));
                return $this->redirect(['view', 'id' => $model->idFile]);
             }
             
